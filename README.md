@@ -1,6 +1,13 @@
 # URL Shortener with Analytics
 
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.0+-green.svg)](https://www.mongodb.com/)
+[![Redis](https://img.shields.io/badge/Redis-7.0+-red.svg)](https://redis.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A full-stack URL shortener with comprehensive analytics, showcasing backend development skills including REST API design, database optimization, caching strategies, and data tracking.
+
+---
 
 ## 🚀 Features
 
