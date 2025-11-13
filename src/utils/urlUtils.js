@@ -2,17 +2,28 @@ const crypto = require('crypto');
 
 /**
  * Generate a random short code using base62 encoding
+ * Uses rejection sampling to avoid modulo bias
  * @param {number} length - Length of the short code
  * @returns {string} Generated short code
  */
 const generateShortCode = (length = 6) => {
   const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const charsLength = chars.length;
   let result = '';
   
-  const randomBytes = crypto.randomBytes(length);
+  // Calculate the largest multiple of charsLength that fits in a byte
+  const maxValid = 256 - (256 % charsLength);
   
-  for (let i = 0; i < length; i++) {
-    result += chars[randomBytes[i] % chars.length];
+  while (result.length < length) {
+    const randomBytes = crypto.randomBytes(length - result.length);
+    
+    for (let i = 0; i < randomBytes.length && result.length < length; i++) {
+      const byte = randomBytes[i];
+      // Use rejection sampling to avoid modulo bias
+      if (byte < maxValid) {
+        result += chars[byte % charsLength];
+      }
+    }
   }
   
   return result;

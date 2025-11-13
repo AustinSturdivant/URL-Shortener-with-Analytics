@@ -32,7 +32,10 @@ router.get('/api/stats/:shortCode', apiLimiter, getAnalytics);
 /**
  * @route   GET /:shortCode
  * @desc    Redirect to original URL
- * @access  Public
+ * @access  Public (intentionally not rate limited for core functionality)
+ * @note    This endpoint is not rate limited because redirects are the primary
+ *          purpose of the service and should be fast and unrestricted.
+ *          Abuse prevention is handled through URL creation rate limits.
  */
 router.get('/:shortCode', redirectUrl);
 

@@ -19,7 +19,19 @@ connectRedis().catch(err => console.log('Running without Redis cache'));
 
 // Middleware
 app.use(helmet({
-  contentSecurityPolicy: false, // Allow inline scripts for the demo frontend
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"], // Allow inline scripts for demo frontend
+      styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles for demo frontend
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"],
+    },
+  },
 }));
 app.use(cors());
 app.use(express.json());
